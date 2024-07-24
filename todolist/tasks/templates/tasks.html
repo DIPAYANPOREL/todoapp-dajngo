@@ -1,17 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tasks</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Tasks</h1>
+    <form method="POST" action="/">
+        {% csrf_token %}
+        {{TaskForm.title}}
+        <br>       
+        <br>       
+        {{TaskForm.description}}
+        <br>
+        <br>
+        <input class="btn" type="submit" name="Create task">
+    </form>
+
     {% for task in tasks %}
         <h4>{{ task.title }}</h4>
         <p>{{ task.description }}</p>
+        {% if task.completed == True %}
+          <p> Task completed: Yes </p>
+          {% else %}
+            <p> Task completed: No </p>
+        {% endif %}
         <p>Status of the task - {{ task.completed }}</p>
-        <p>{{ task.created }}</p>
+        <a href="{% url 'update-task' task.id %}"> Update </a>
+        <br>
+        <br>
+        <a href="{% url 'delete-task' task.id %}"> Delete </a>
     {% endfor %}
-</body>
+  </body>
 </html>
