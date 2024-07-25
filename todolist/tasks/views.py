@@ -21,10 +21,10 @@ def index(request):
 def updateTask(request, pk):
     task = Tasks.objects.get(id=pk)
     form = TaskForm(instance=task)
-    if request.method == 'PUT':        
-        form = TaskForm(request.PUT, instance=task)
+    if request.method == 'POST':        
+        form = TaskForm(request.POST, instance=task)
         if form.is_valid():
-            form.save()
+            form.update()
             return redirect('/')
     context = {'TaskForm': form}
     return render(request, 'update-task.html', context)
