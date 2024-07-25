@@ -24,7 +24,7 @@ def updateTask(request, pk):
     if request.method == 'POST':        
         form = TaskForm(request.POST, instance=task)
         if form.is_valid():
-            form.update()
+            form.save()
             return redirect('/')
     context = {'TaskForm': form}
     return render(request, 'update-task.html', context)
